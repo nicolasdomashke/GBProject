@@ -5,9 +5,10 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     [SerializeField] private Transform cameraPos;
-    [SerializeField] private float speed = 1f;
-    [SerializeField] private float jumpSpeed = 1f;
+    private float speed = 10f;
+    private float jumpSpeed = 7f;
     private Vector3 cameraOffset = new Vector3(0f, 2.25f, -4.9f);
+    private Vector3 moveVector = Vector3.zero;
     private Rigidbody rb;
     private bool isGrounded = true;
     void Awake()
@@ -17,7 +18,10 @@ public class BallController : MonoBehaviour
 
     void Update()
     {
-        Vector3 moveVector = Vector3.zero;
+        //float moveX = Input.GetAxis("Horizontal");
+        //float moveZ = Input.GetAxis("Vertical");
+        //moveVector = new Vector3(moveX, 0f, moveZ);
+        moveVector = Vector3.zero;
         if (Input.GetKey("w"))
         {
             moveVector += Vector3.forward;
@@ -34,13 +38,19 @@ public class BallController : MonoBehaviour
         {
             moveVector += Vector3.right;
         }
-        rb.AddForce(moveVector.normalized * speed, ForceMode.Acceleration);
+        
+        //rb.AddForce(moveVector.normalized * speed, ForceMode.Acceleration);
         if (Input.GetKey("space") && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
             isGrounded = false;
         }
         cameraPos.position = transform.position + cameraOffset;
+    }
+
+    private void FixedUpdate() 
+    {
+        rb.AddForce(moveVector.normalized * speed, ForceMode.Acceleration);
     }
 
     private void OnCollisionEnter(Collision other) {
