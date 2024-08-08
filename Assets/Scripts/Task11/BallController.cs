@@ -5,15 +5,19 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     [SerializeField] private Transform cameraPos;
+    [SerializeField] private Transform particlesPos;
+    //private ParticleSystem particlesSystem;
     private float speed = 10f;
     private float jumpSpeed = 7f;
     private Vector3 cameraOffset = new Vector3(0f, 2.25f, -4.9f);
+    private Vector3 particlesOffset = new Vector3(0f, -.5f, 0f);
     private Vector3 moveVector = Vector3.zero;
     private Rigidbody rb;
     private bool isGrounded = true;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        //particlesSystem = particlesPos.gameObject.GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -46,6 +50,10 @@ public class BallController : MonoBehaviour
             isGrounded = false;
         }
         cameraPos.position = transform.position + cameraOffset;
+        if (isGrounded) 
+        {
+            particlesPos.position = transform.position + particlesOffset;
+        }
     }
 
     private void FixedUpdate() 

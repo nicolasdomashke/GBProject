@@ -12,13 +12,17 @@ public class BombController : MonoBehaviour
     [SerializeField] private float explosionRange;
     [SerializeField] private float delay;
     private Transform radiusHitbox;
+    private Transform bombBody;
+    private ParticleSystem particlesSystem;
 
     bool idle = true;
     void Awake()
     {
         Transform[] transforms = GetComponentsInChildren<Transform>();
+        bombBody = transforms[1];
         radiusHitbox = transforms[2];
         radiusHitbox.gameObject.SetActive(false);
+        particlesSystem = GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -48,6 +52,9 @@ public class BombController : MonoBehaviour
         {
             obj.gameObject.SetActive(false);
         }
-        this.gameObject.SetActive(false);
+        bombBody.gameObject.SetActive(false);
+        radiusHitbox.gameObject.SetActive(false);
+        particlesSystem.Play();
+        this.enabled = false;
     }
 }
