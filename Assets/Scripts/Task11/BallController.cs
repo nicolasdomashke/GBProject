@@ -44,7 +44,7 @@ public class BallController : MonoBehaviour
         }
         
         //rb.AddForce(moveVector.normalized * speed, ForceMode.Acceleration);
-        if (Input.GetKey("space") && isGrounded)
+        if (Input.GetKeyDown("space") && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
             isGrounded = false;
