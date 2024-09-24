@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Damageable
+  - Background
+  - Collectable
   layers:
   - Default
   - TransparentFX

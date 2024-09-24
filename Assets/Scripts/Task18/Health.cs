@@ -17,7 +17,7 @@ public class Health : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Debug.Log(this.gameObject.name + " повержен!");
+            //Debug.Log(this.gameObject.name + " повержен!");
             animator.SetBool("dead", true);
             StartCoroutine(Dying());
         }
@@ -25,6 +25,7 @@ public class Health : MonoBehaviour
     private IEnumerator Dying()
     {
         yield return new WaitForSeconds(.35f);
-        this.gameObject.SetActive(false);
+        GameData.score++;
+        Destroy(this.gameObject);
     }
 }

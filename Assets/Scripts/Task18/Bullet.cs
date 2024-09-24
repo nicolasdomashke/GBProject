@@ -11,6 +11,9 @@ public class Bullet : MonoBehaviour
         {
             other.gameObject.GetComponent<Health>().TakeDamage(damage);
         }
-        Destroy(this.gameObject);
+        if (!other.CompareTag("Background") && !other.CompareTag("Collectable"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
