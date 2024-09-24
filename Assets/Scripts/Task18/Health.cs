@@ -6,9 +6,11 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
     private float health;
+    private Animator animator;
     void Awake()
     {
         health = maxHealth;
+        animator = GetComponent<Animator>();
     }
     public void TakeDamage(float damage)
     {
@@ -16,6 +18,13 @@ public class Health : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log(this.gameObject.name + " повержен!");
+            animator.SetBool("dead", true);
+            StartCoroutine(Dying());
         }
+    }
+    private IEnumerator Dying()
+    {
+        yield return new WaitForSeconds(.35f);
+        this.gameObject.SetActive(false);
     }
 }

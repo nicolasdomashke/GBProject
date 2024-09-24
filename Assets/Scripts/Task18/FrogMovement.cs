@@ -13,11 +13,13 @@ public class FrogMovement : MonoBehaviour
     private Rigidbody2D rigidBody2D;
     private Vector2 movementVector;
     private Shooter shooter;
-    private bool isGrounded = false;
+    private SpriteRenderer spriteRenderer;
+    public bool isGrounded = false;
     void Awake()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
         shooter = GetComponent<Shooter>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -34,7 +36,7 @@ public class FrogMovement : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire1"))
         {
-            shooter.Shoot(1f);
+            shooter.Shoot(!spriteRenderer.flipX);
         }
     }
 }

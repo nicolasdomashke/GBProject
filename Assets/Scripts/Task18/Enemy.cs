@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
         for (;;)
         {
             yield return new WaitForSeconds(3);
-            shooter.Shoot(-1f);
+            shooter.Shoot(false);
         }
     }
 }
